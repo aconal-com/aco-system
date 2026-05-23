@@ -1,0 +1,31 @@
+{
+  "description": "Actions after human approval",
+  "trigger": {
+    "transition": "human-review → done"
+  },
+  "actions": [
+    {
+      "name": "mark_story_done",
+      "type": "database_action",
+      "action_type": "update_status",
+      "new_status": "done"
+    },
+    {
+      "name": "archive_story_context",
+      "type": "database_action",
+      "action_type": "archive"
+    },
+    {
+      "name": "close_github_issue",
+      "type": "github_action",
+      "action_type": "close_issue",
+      "comment": "✅ Story completed - marked as done"
+    }
+  ],
+  "notifications": [
+    {
+      "channel": "slack",
+      "message": "🎉 Story #{story_id} ({title}) is DONE!\n\nCompleted at: {completed_at}"
+    }
+  ]
+}

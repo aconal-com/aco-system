@@ -1,0 +1,27 @@
+{
+  "description": "Actions after dev completes a task",
+  "trigger": {
+    "event": "task_complete",
+    "agent": "aco-dev"
+  },
+  "actions": [
+    {
+      "name": "create_or_update_pr",
+      "type": "github_action",
+      "action_type": "create_pr",
+      "fail_action": "log_error"
+    },
+    {
+      "name": "update_task_status",
+      "type": "database_action",
+      "action_type": "update_status",
+      "new_status": "done"
+    }
+  ],
+  "notifications": [
+    {
+      "channel": "slack",
+      "message": "🎉 Dev completed task: {task_title} - PR created"
+    }
+  ]
+}

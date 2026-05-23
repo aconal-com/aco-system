@@ -1,0 +1,43 @@
+{
+  "description": "Security validation before architect approval - CRITICAL GATE",
+  "trigger": {
+    "transition": "ready-architect → approved"
+  },
+  "validators": [
+    {
+      "name": "security_secrets_check",
+      "type": "deterministic",
+      "check_type": "security_checklist",
+      "fail_action": "reject_with_comment",
+      "comment": "❌ CRITICAL: Security check failed - Found {violations}. Fix before architect can approve."
+    },
+    {
+      "name": "schema_compliance",
+      "type": "deterministic",
+      "check_type": "schema_validation",
+      "required_fields": ["tech_stack", "acceptance_criteria"],
+      "fail_action": "reject_with_comment",
+      "comment": "❌ Schema validation failed - Missing required fields: {missing_fields}"
+    },
+    {
+      "name": "task_coverage",
+      "type": "deterministic",
+      "check_type": "task_coverage",
+      "fail_action": "reject_with_comment",
+      "comment": "❌ Task coverage check failed - Some tasks are not assigned or have no estimate"
+    },
+    {
+      "name": "architectural_sanity_check",
+      "type": "llm",
+      "rule": "common/security.md",
+      "fail_action": "warn_only",
+      "comment": "⚠️ Architectural advisory: {violations}"
+    }
+  ],
+  "notifications": [
+    {
+      "channel": "slack",
+      "message": "🔍 Architect reviewing Story #{story_id} - Security validation running"
+    }
+  ]
+}

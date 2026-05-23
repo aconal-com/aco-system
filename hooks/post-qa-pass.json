@@ -1,0 +1,20 @@
+{
+  "description": "Actions after QA passes",
+  "trigger": {
+    "transition": "qa → human-review"
+  },
+  "actions": [
+    {
+      "name": "notify_human_for_review",
+      "type": "notification",
+      "channel": "whatsapp",
+      "message": "👋 Story #{story_id} is ready for human review.\n\n**Title**: {title}\n**Status**: Ready for review\n**QA Results**: Tests {tests_passed}, Coverage {coverage}%"
+    },
+    {
+      "name": "create_final_pr",
+      "type": "github_action",
+      "action_type": "create_pr",
+      "fail_action": "log_error"
+    }
+  ]
+}

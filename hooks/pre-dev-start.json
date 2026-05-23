@@ -1,0 +1,23 @@
+{
+  "description": "Validation before starting development work",
+  "trigger": {
+    "transition": "approved → dev"
+  },
+  "validators": [
+    {
+      "name": "story_ready_for_dev",
+      "type": "deterministic",
+      "check_type": "schema_validation",
+      "required_fields": ["tech_stack", "acceptance_criteria", "tasks"],
+      "fail_action": "reject_with_comment",
+      "comment": "❌ Story not ready for dev - Missing: {missing_fields}"
+    },
+    {
+      "name": "tasks_assignable",
+      "type": "deterministic",
+      "check_type": "task_assignability",
+      "fail_action": "warn_only",
+      "comment": "⚠️ Warning: {unassigned_count} tasks are not assigned. Please assign before starting."
+    }
+  ]
+}

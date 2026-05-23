@@ -1,0 +1,29 @@
+{
+  "description": "Validation before QA review",
+  "trigger": {
+    "transition": "dev → qa"
+  },
+  "validators": [
+    {
+      "name": "all_tasks_complete",
+      "type": "deterministic",
+      "check_type": "all_tasks_done",
+      "fail_action": "reject_with_comment",
+      "comment": "❌ Cannot move to QA - {incomplete_count} tasks are not done yet"
+    },
+    {
+      "name": "security_final_check",
+      "type": "deterministic",
+      "check_type": "security_checklist",
+      "fail_action": "reject_with_comment",
+      "comment": "❌ CRITICAL: Security check failed before QA - Found {violations}"
+    },
+    {
+      "name": "code_quality_check",
+      "type": "llm",
+      "rule": "common/coding-standards.md",
+      "fail_action": "warn_only",
+      "comment": "⚠️ Code quality advisory: {violations}"
+    }
+  ]
+}
