@@ -1,5 +1,5 @@
 # ACO System — Autonomous Company Operating System
-<img width="2814" height="1536" alt="aco-system" src="https://github.com/user-attachments/assets/b7155ff7-059f-44d1-b255-f78ba4f95269" />
+<img width="2814" height="1536" alt="aco-system" src="https://raw.githubusercontent.com/aniketkarne/aco-system/refs/heads/main/docs/597115327-b7155ff7-059f-44d1-b255-f78ba4f95269.png" />
 
 
 A framework for running a multi-agent software development team — autonomously or semi-autonomously. Six specialized agents collaborate through a shared database pipeline: **requirements → planning → architecture → implementation → QA → human review**. Works with GitHub Issues, ships real PRs.
